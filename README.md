@@ -18,6 +18,20 @@ The project aims to make AI model discovery easier by bringing model information
 - **AI Providers:** Browse AI companies and their models.
 - **Responsive Interface:** Dark-themed dashboard design.
 
+## 📸 Application Screenshots
+
+### Dashboard
+![OneAtlas AI Dashboard](./screenshots/dashboard.png)
+
+### Explore Models
+![Explore AI Models](./screenshots/explore-models.png)
+
+### Compare Models
+![Compare AI Models](./screenshots/compare-models.png)
+
+### Rankings
+![AI Model Rankings](./screenshots/rankings.png)
+
 ## 🛠️ Tech Stack
 
 | Technology | Purpose |
