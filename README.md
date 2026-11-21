@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OneAtlas AI 🌐
 
-## Getting Started
+**Discover. Compare. Understand AI Models.**
 
-First, run the development server:
+OneAtlas AI is an AI model discovery platform designed to help users explore, search, compare, and evaluate different AI models from leading providers through a unified interface.
+
+The project aims to make AI model discovery easier by bringing model information, provider details, pricing information, and rankings together in one place.
+
+## ✨ Features
+
+- **Dashboard:** Overview of featured AI models and platform statistics.
+- **Explore Models:** Browse available AI models.
+- **Search & Filters:** Search by model or provider and filter by category.
+- **Sorting:** Organize models by available attributes.
+- **Model Details:** View individual model information, capabilities, and pricing.
+- **Model Comparison:** Compare two models side by side.
+- **Rankings:** Explore an illustrative model ranking interface.
+- **AI Providers:** Browse AI companies and their models.
+- **Responsive Interface:** Dark-themed dashboard design.
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Next.js | React framework |
+| React | UI development |
+| TypeScript | Type safety |
+| Tailwind CSS | Styling |
+| Lucide React | Icons |
+| Git & GitHub | Version control |
+
+## 📁 Project Structure
+
+```text
+oneatlas-ai/
+├── app/
+│   ├── components/
+│   │   ├── ModelCard.tsx
+│   │   ├── ModelFilters.tsx
+│   │   ├── Navbar.tsx
+│   │   └── Sidebar.tsx
+│   ├── data/
+│   │   └── models.ts
+│   ├── models/
+│   │   └── [id]/
+│   │       └── page.tsx
+│   ├── compare/
+│   ├── providers/
+│   ├── rankings/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── public/
+├── package.json
+└── README.md
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+- Git
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/officialsatnaamsingh2023-art/oneatlas-ai.git
+```
+
+2. Navigate into the project:
+
+```bash
+cd oneatlas-ai
+```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+4. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Production Build
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🗺️ Development Roadmap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [x] Day 1: Frontend foundation and navigation
+- [ ] Day 2: Backend APIs and PostgreSQL database integration using Prisma
+- [ ] Day 3: Testing, deployment, and project demonstration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📌 Project Status
 
-## Deploy on Vercel
+**Current Stage:** Day 1 — Frontend foundation completed.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The current version uses sample model data. Database integration, backend APIs, and deployment are planned for the next development stages.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 👨‍💻 Author
+
+**Satnaam Singh**
+
+GitHub: [officialsatnaamsingh2023-art](https://github.com/officialsatnaamsingh2023-art)
+
+---
+
+*OneAtlas AI — One platform to explore the AI model ecosystem.*
