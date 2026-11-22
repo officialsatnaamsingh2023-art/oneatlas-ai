@@ -1,0 +1,28 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AIModel {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  provider    String
+  description String   @db.Text
+  category    String
+  context     Int      @default(0)
+  inputPrice  Float    @default(0)
+  outputPrice Float    @default(0)
+  speed       String   @default("Medium")
+  openSource  Boolean  @default(false)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([provider])
+  @@index([category])
+}
