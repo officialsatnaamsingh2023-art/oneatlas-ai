@@ -3,16 +3,31 @@ import Link from "next/link";
 import { ArrowUpRight, BrainCircuit } from "lucide-react";
 
 type Model = {
-  id: number;
+  id: string;
   name: string;
   provider: string;
   category: string;
   description: string;
-  context: string;
-  inputPrice: string;
-  outputPrice: string;
-  badge: string;
+  context: number;
+  inputPrice: number;
+  outputPrice: number;
+  featured: boolean;
 };
+
+function formatContext(context: number) {
+  if (context >= 1_000_000) return `${context / 1_000_000}M`;
+  if (context >= 1_000) return `${context / 1_000}K`;
+  return context.toLocaleString();
+}
+
+function formatPrice(price: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(price);
+}
 
 export default function ModelCard({ model }: { model: Model }) {
   return (
@@ -21,8 +36,9 @@ export default function ModelCard({ model }: { model: Model }) {
         <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-500/15 text-violet-300">
           <BrainCircuit size={23} />
         </div>
+
         <span className="rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs text-violet-300">
-          {model.badge}
+          {model.featured ? "Featured" : "AI Model"}
         </span>
       </div>
 
@@ -39,18 +55,23 @@ export default function ModelCard({ model }: { model: Model }) {
           {model.category}
         </span>
         <span className="rounded-lg bg-slate-800 px-2.5 py-1.5 text-xs text-slate-300">
-          {model.context} context
+          {formatContext(model.context)} context
         </span>
       </div>
 
       <div className="mt-5 grid grid-cols-2 gap-3 border-t border-slate-800 pt-4">
         <div>
           <p className="text-xs text-slate-500">Input / 1M tokens</p>
-          <p className="mt-1 font-semibold text-white">{model.inputPrice}</p>
+          <p className="mt-1 font-semibold text-white">
+            {formatPrice(model.inputPrice)}
+          </p>
         </div>
+
         <div>
           <p className="text-xs text-slate-500">Output / 1M tokens</p>
-          <p className="mt-1 font-semibold text-white">{model.outputPrice}</p>
+          <p className="mt-1 font-semibold text-white">
+            {formatPrice(model.outputPrice)}
+          </p>
         </div>
       </div>
 
