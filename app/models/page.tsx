@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -44,7 +45,6 @@ export default function ModelsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch all models once to populate filter options.
   useEffect(() => {
     const controller = new AbortController();
 
@@ -73,11 +73,9 @@ export default function ModelsPage() {
     }
 
     fetchAllModels();
-
     return () => controller.abort();
   }, []);
 
-  // Fetch models from the API whenever search or filters change.
   useEffect(() => {
     const controller = new AbortController();
 
@@ -88,20 +86,10 @@ export default function ModelsPage() {
       try {
         const params = new URLSearchParams();
 
-        if (search.trim()) {
-          params.set("search", search.trim());
-        }
+        if (search.trim()) params.set("search", search.trim());
+        if (provider !== "All") params.set("provider", provider);
+        if (category !== "All") params.set("category", category);
 
-        if (provider !== "All") {
-          params.set("provider", provider);
-        }
-
-        if (category !== "All") {
-          params.set("category", category);
-        }
-
-        // Provider sorting is handled locally because the API
-        // currently supports name, price, and newest sorting.
         params.set("sort", sort === "provider" ? "name" : sort);
 
         const response = await fetch(
@@ -141,7 +129,6 @@ export default function ModelsPage() {
     }
 
     fetchFilteredModels();
-
     return () => controller.abort();
   }, [search, category, provider, sort]);
 
@@ -156,39 +143,37 @@ export default function ModelsPage() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-[#090d18]">
+    <div className="flex min-h-screen w-full overflow-x-clip bg-[#090d18]">
       <Sidebar />
 
-      <main className="min-w-0 flex-1">
+      <main className="min-w-0 w-full flex-1">
         <Navbar />
 
-        <div className="mx-auto max-w-7xl space-y-7 p-6 lg:p-8">
-          <section>
-            <p className="text-sm font-medium text-violet-400">
+        <div className="mx-auto w-full max-w-7xl space-y-6 p-4 sm:space-y-7 sm:p-6 lg:p-8">
+          <section className="min-w-0">
+            <p className="text-xs font-medium tracking-wide text-violet-400 sm:text-sm">
               MODEL DIRECTORY
             </p>
 
-            <h1 className="mt-2 text-3xl font-bold text-white">
+            <h1 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
               Explore AI Models
             </h1>
 
-            <p className="mt-2 text-sm leading-6 text-slate-400">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
               Discover and explore AI models from different providers.
               Find the right model for your next project.
             </p>
           </section>
 
-          {/* Search and filters */}
-          <section className="rounded-2xl border border-slate-800 bg-[#111827] p-5">
-            <div className="flex flex-col gap-4 lg:flex-row">
-              <div className="flex flex-1 items-center gap-3 rounded-xl border border-slate-700 bg-[#090d18] px-4 py-3">
-                <Search size={19} className="text-slate-400" />
-
+          <section className="min-w-0 rounded-2xl border border-slate-800 bg-[#111827] p-4 sm:p-5">
+            <div className="grid min-w-0 grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-center">
+              <div className="flex min-w-0 items-center gap-3 rounded-xl border border-slate-700 bg-[#090d18] px-3 py-3 sm:px-4">
+                <Search size={19} className="shrink-0 text-slate-400" />
                 <input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search by model, provider or description..."
-                  className="w-full bg-transparent text-sm text-white outline-none placeholder:text-slate-500"
+                  placeholder="Search models or providers..."
+                  className="w-full min-w-0 bg-transparent text-sm text-white outline-none placeholder:text-slate-500"
                 />
               </div>
 
@@ -197,28 +182,30 @@ export default function ModelsPage() {
                 <span className="text-sm">Filters</span>
               </div>
 
-              <select
-                value={provider}
-                onChange={(e) => setProvider(e.target.value)}
-                className="rounded-xl border border-slate-700 bg-[#090d18] px-4 py-3 text-sm text-white outline-none"
-              >
-                {providers.map((item) => (
-                  <option key={item} value={item}>
-                    {item === "All" ? "All Providers" : item}
-                  </option>
-                ))}
-              </select>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:contents">
+                <select
+                  value={provider}
+                  onChange={(e) => setProvider(e.target.value)}
+                  className="w-full min-w-0 rounded-xl border border-slate-700 bg-[#090d18] px-3 py-3 text-sm text-white outline-none focus:border-violet-500 sm:px-4"
+                >
+                  {providers.map((item) => (
+                    <option key={item} value={item}>
+                      {item === "All" ? "All Providers" : item}
+                    </option>
+                  ))}
+                </select>
 
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value)}
-                className="rounded-xl border border-slate-700 bg-[#090d18] px-4 py-3 text-sm text-white outline-none"
-              >
-                <option value="name">Sort by Name</option>
-                <option value="provider">Sort by Provider</option>
-                <option value="price">Sort by Input Price</option>
-                <option value="newest">Sort by Newest</option>
-              </select>
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value)}
+                  className="w-full min-w-0 rounded-xl border border-slate-700 bg-[#090d18] px-3 py-3 text-sm text-white outline-none focus:border-violet-500 sm:px-4"
+                >
+                  <option value="name">Sort by Name</option>
+                  <option value="provider">Sort by Provider</option>
+                  <option value="price">Sort by Input Price</option>
+                  <option value="newest">Sort by Newest</option>
+                </select>
+              </div>
             </div>
 
             <div className="mt-5">
@@ -231,7 +218,7 @@ export default function ModelsPage() {
                   <button
                     key={item}
                     onClick={() => setCategory(item)}
-                    className={`rounded-full border px-4 py-2 text-sm transition ${
+                    className={`max-w-full rounded-full border px-3 py-2 text-xs transition sm:px-4 sm:text-sm ${
                       category === item
                         ? "border-violet-500 bg-violet-600 text-white"
                         : "border-slate-700 bg-slate-900 text-slate-400 hover:border-violet-500 hover:text-white"
@@ -244,11 +231,10 @@ export default function ModelsPage() {
             </div>
           </section>
 
-          {/* Model results */}
-          <section>
+          <section className="min-w-0">
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div>
-                <h2 className="text-xl font-semibold text-white">
+                <h2 className="text-lg font-semibold text-white sm:text-xl">
                   Available Models
                 </h2>
 
@@ -259,7 +245,7 @@ export default function ModelsPage() {
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-slate-400">
+              <div className="flex items-center gap-2 text-xs text-slate-400 sm:text-sm">
                 <ArrowUpDown size={16} />
                 {sort === "name"
                   ? "Name order"
@@ -272,12 +258,13 @@ export default function ModelsPage() {
             </div>
 
             {error ? (
-              <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-6 text-center">
+              <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-5 text-center sm:p-6">
                 <p className="font-medium text-red-300">
                   Something went wrong
                 </p>
-                <p className="mt-2 text-sm text-slate-300">{error}</p>
-
+                <p className="mt-2 break-words text-sm text-slate-300">
+                  {error}
+                </p>
                 <button
                   onClick={() => window.location.reload()}
                   className="mt-4 rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-violet-500"
@@ -290,7 +277,7 @@ export default function ModelsPage() {
                 Loading AI models...
               </div>
             ) : filteredModels.length > 0 ? (
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid min-w-0 grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {filteredModels.map((model) => (
                   <ModelCard key={model.id} model={model} />
                 ))}
@@ -298,15 +285,12 @@ export default function ModelsPage() {
             ) : (
               <div className="rounded-2xl border border-slate-800 bg-[#111827] px-5 py-16 text-center">
                 <Search size={32} className="mx-auto text-slate-500" />
-
                 <h3 className="mt-4 text-lg font-semibold text-white">
                   No models found
                 </h3>
-
                 <p className="mt-2 text-sm text-slate-400">
                   Try changing your search or filters.
                 </p>
-
                 <button
                   onClick={() => {
                     setSearch("");

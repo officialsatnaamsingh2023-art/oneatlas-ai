@@ -87,7 +87,6 @@ export default function ComparePage() {
     }
 
     fetchModels();
-
     return () => controller.abort();
   }, []);
 
@@ -117,12 +116,12 @@ export default function ComparePage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-[#090d18]">
+      <div className="flex min-h-screen w-full overflow-x-clip bg-[#090d18]">
         <Sidebar />
         <main className="min-w-0 flex-1">
           <Navbar />
-          <div className="flex min-h-[70vh] items-center justify-center text-slate-300">
-            <RefreshCw className="mr-3 animate-spin text-violet-400" size={20} />
+          <div className="flex min-h-[70vh] items-center justify-center px-4 text-sm text-slate-300">
+            <RefreshCw className="mr-3 shrink-0 animate-spin text-violet-400" size={20} />
             Loading models from database...
           </div>
         </main>
@@ -131,27 +130,25 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#090d18]">
+    <div className="flex min-h-screen w-full overflow-x-clip bg-[#090d18]">
       <Sidebar />
 
       <main className="min-w-0 flex-1">
         <Navbar />
 
-        <div className="mx-auto max-w-6xl space-y-7 p-6 lg:p-8">
+        <div className="mx-auto w-full max-w-6xl space-y-6 p-4 sm:space-y-7 sm:p-6 lg:p-8">
           <div>
-            <p className="text-sm text-violet-400">MODEL ANALYSIS</p>
-
-            <h1 className="mt-2 text-3xl font-bold text-white">
+            <p className="text-xs text-violet-400 sm:text-sm">MODEL ANALYSIS</p>
+            <h1 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
               Compare AI Models
             </h1>
-
-            <p className="mt-2 text-sm text-slate-400">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
               Compare model capabilities, providers, context windows, and pricing.
             </p>
           </div>
 
           {error && (
-            <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
+            <div className="break-words rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
               {error}
               <button
                 onClick={() => window.location.reload()}
@@ -173,16 +170,15 @@ export default function ComparePage() {
 
           {models.length > 0 && (
             <>
-              <section className="grid gap-5 md:grid-cols-2">
-                <div className="rounded-2xl border border-slate-800 bg-[#111827] p-5">
+              <section className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2 sm:gap-5">
+                <div className="min-w-0 rounded-2xl border border-slate-800 bg-[#111827] p-4 sm:p-5">
                   <label className="mb-3 block text-sm text-slate-400">
                     First Model
                   </label>
-
                   <select
                     value={first}
                     onChange={(e) => setFirst(e.target.value)}
-                    className="w-full rounded-xl border border-slate-700 bg-[#090d18] p-3 text-white outline-none focus:border-violet-500"
+                    className="w-full min-w-0 rounded-xl border border-slate-700 bg-[#090d18] p-3 text-sm text-white outline-none focus:border-violet-500"
                   >
                     <option value="">Select first model</option>
                     {models.map((model) => (
@@ -193,15 +189,14 @@ export default function ComparePage() {
                   </select>
                 </div>
 
-                <div className="rounded-2xl border border-slate-800 bg-[#111827] p-5">
+                <div className="min-w-0 rounded-2xl border border-slate-800 bg-[#111827] p-4 sm:p-5">
                   <label className="mb-3 block text-sm text-slate-400">
                     Second Model
                   </label>
-
                   <select
                     value={second}
                     onChange={(e) => setSecond(e.target.value)}
-                    className="w-full rounded-xl border border-slate-700 bg-[#090d18] p-3 text-white outline-none focus:border-violet-500"
+                    className="w-full min-w-0 rounded-xl border border-slate-700 bg-[#090d18] p-3 text-sm text-white outline-none focus:border-violet-500"
                   >
                     <option value="">Select second model</option>
                     {models.map((model) => (
@@ -213,14 +208,14 @@ export default function ComparePage() {
                 </div>
               </section>
 
-              <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
                 <p className="text-sm text-slate-400">
                   {models.length} models available in your database
                 </p>
 
                 <button
                   onClick={clearComparison}
-                  className="flex items-center gap-2 rounded-xl border border-slate-700 px-4 py-2 text-sm text-slate-300 hover:border-red-500 hover:text-red-300"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 px-4 py-2.5 text-sm text-slate-300 hover:border-red-500 hover:text-red-300 sm:w-auto"
                 >
                   <X size={15} />
                   Clear comparison
@@ -236,19 +231,19 @@ export default function ComparePage() {
                   Select two models above to see their comparison.
                 </p>
               ) : modelA && modelB ? (
-                <section className="overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]">
-                  <div className="flex items-center gap-2 border-b border-slate-800 p-5 text-white">
-                    <GitCompareArrows className="text-violet-400" />
+                <section className="min-w-0 overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]">
+                  <div className="flex items-center gap-2 border-b border-slate-800 p-4 text-white sm:p-5">
+                    <GitCompareArrows className="shrink-0 text-violet-400" />
                     <h2 className="font-semibold">Comparison Results</h2>
                   </div>
 
                   <div className="overflow-x-auto">
-                    <table className="w-full text-left text-sm">
+                    <table className="w-full min-w-[600px] text-left text-sm">
                       <thead className="bg-slate-900 text-slate-300">
                         <tr>
-                          <th className="p-4">Specification</th>
-                          <th className="p-4">{modelA.name}</th>
-                          <th className="p-4">{modelB.name}</th>
+                          <th className="w-1/4 p-3 sm:p-4">Specification</th>
+                          <th className="p-3 sm:p-4">{modelA.name}</th>
+                          <th className="p-3 sm:p-4">{modelB.name}</th>
                         </tr>
                       </thead>
 
@@ -258,11 +253,11 @@ export default function ComparePage() {
                             key={label}
                             className="border-t border-slate-800 text-slate-300"
                           >
-                            <td className="p-4 font-medium text-slate-400">
+                            <td className="p-3 font-medium text-slate-400 sm:p-4">
                               {label}
                             </td>
-                            <td className="max-w-sm p-4">{a}</td>
-                            <td className="max-w-sm p-4">{b}</td>
+                            <td className="max-w-sm break-words p-3 sm:p-4">{a}</td>
+                            <td className="max-w-sm break-words p-3 sm:p-4">{b}</td>
                           </tr>
                         ))}
                       </tbody>
